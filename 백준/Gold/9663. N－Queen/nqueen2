@@ -1,0 +1,29 @@
+# import sys
+# import math
+
+count = 0
+# n = int(sys.stdin.readline())
+n = int(input())
+
+line = [False] * n    # 아래
+diagonal_right = [False] * (2 * n - 1)  # 양쪽으로 보드판을 늘림(대각선 표현 - 오른쪽)
+diagonal_left = [False] * (2 * n - 1)  # 왼쪽 대각선
+
+
+def setting(i):
+    global count
+    for j in range(n):
+        if (not line[j] # 수직아래, 대각선(오른쪽, 왼쪽) 이 둘 수 있는지 확인
+                and not diagonal_right[i + j]
+                and not diagonal_left[i - j + n - 1]):
+
+            if i == (n - 1):
+                count = count + 1
+            else:
+                line[j] = diagonal_right[i + j] = diagonal_left[i - j + n - 1] = True
+                setting(i + 1)
+                line[j] = diagonal_right[i + j] = diagonal_left[i - j + n - 1] = False
+# 대각선을 하나의 line 으로 보고 생각한다!
+
+setting(0)
+print(count)
