@@ -1,25 +1,22 @@
 import sys
 input = sys.stdin.readline
-
+sys.setrecursionlimit(100000)
 v = int(input())
-node = [0 for _ in range(v+1)]
-arr = list(input().rstrip())
+node = [0] + list(map(int, input().rstrip()))
 edge = [[] for _ in range(v+1)]
-
-for i in range(v):
-    node[i+1] = int(arr[i])
+cnt = 0 # 실내끼리 붙어있는 경우 체크
 for _ in range(v-1):
     i, j = map(int, input().split())
     edge[i].append(j)
     edge[j].append(i)
+    if node[i] == node[j] == 1:
+        cnt += 2
 
 # print(node)
 # print(edge)
-# 1번부터 v번 노드까지 전부다 확인
-# node 가 0 인 거에서 출발해서 다시 node 가 0 인 것까지 오는데 확인(되돌아오기 불가)
 
 
-def search(x):
+def search(x):  # 실외 기준
     global ans
     visited[x] = True
     for i in edge[x]:
@@ -30,9 +27,11 @@ def search(x):
             search(i)
 
 
-ans = 0
+visited = [False for _ in range(v + 1)]
 for i in range(1, v+1):
-    if node[i] == 1:
-        visited = [False for _ in range(v + 1)]
+    if not visited[i] and node[i] == 0:
+        ans = 0
         search(i)    # 길 확인
-print(ans)
+        cnt += ans * (ans-1)
+
+print(cnt)
