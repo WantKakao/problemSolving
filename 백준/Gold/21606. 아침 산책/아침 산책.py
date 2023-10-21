@@ -1,6 +1,6 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(1000000)
 v = int(input())
 node = [0] + list(map(int, input().rstrip()))
 edge = [[] for _ in range(v+1)]
