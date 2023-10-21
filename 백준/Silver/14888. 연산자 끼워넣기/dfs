@@ -1,0 +1,29 @@
+n = int(input())
+arr = list(map(int, input().split()))
+cal = list(map(int, input().split()))
+ans = []
+
+def solution(k, cal, i):
+    if i == n:
+        ans.append(k)
+        return
+    for _ in range(cal[0]):
+        cal[0] -= 1
+        solution(k+arr[i], cal, i+1)
+        cal[0] += 1
+    for _ in range(cal[1]):
+        cal[1] -= 1
+        solution(k-arr[i], cal, i+1)
+        cal[1] += 1
+    for _ in range(cal[2]):
+        cal[2] -= 1
+        solution(k*arr[i], cal, i+1)
+        cal[2] += 1
+    for _ in range(cal[3]):
+        cal[3] -= 1
+        solution(int(k/arr[i]), cal, i+1)
+        cal[3] += 1
+
+solution(arr[0], cal, 1)
+print(max(ans))
+print(min(ans))
