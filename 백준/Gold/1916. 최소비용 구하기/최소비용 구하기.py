@@ -1,41 +1,38 @@
-import heapq
-from sys import maxsize
 import sys
-
-
 input = sys.stdin.readline
 
-n = int(input())
-m = int(input())
+v = int(input())
+e = int(input())
+bus = [[] for _ in range(v+1)]
+for _ in range(e):
+    i, j, c = map(int, input().split())
+    bus[i].append((j, c))
+start, finish = map(int, input().split())
 
-graph = [[] for _ in range(n + 1)]
-visited = [maxsize] * (n + 1)
-for _ in range(m):
-    a, b, c = map(int, input().split())
-    graph[a].append((c, b))
+INF = 10e9
+distance = [INF for _ in range(v+1)]    # start 에서 출발하는 비용
+distance[start] = 0
+check = [False for _ in range(v+1)] # 이미 했던 도시인지 검사
+check[start] = True
 
-start, end = map(int, input().split())
+# print(bus)
+for j, c in bus[start]:
+    distance[j] = min(distance[j], c)
 
+while True:
+    # print(distance)
+    min_index = 0
+    minimum = INF
+    for i in range(1, v+1):
+        if distance[i] < minimum and check[i] == False:
+            minimum = distance[i]
+            min_index = i
+    check[min_index] = True
+    # print(min_index, bus[min_index])
+    # print(check)
+    if min_index == 0:
+        break
+    for j, c in bus[min_index]:
+        distance[j] = min(distance[j], distance[min_index] + c)
 
-def dijkstra(x):
-    pq = []
-    heapq.heappush(pq, (0, x))
-    visited[x] = 0
-
-    while pq:
-        d, x = heapq.heappop(pq)
-
-        if visited[x] < d:
-            continue
-
-        for nw, nx in graph[x]:
-            nd = d + nw
-
-            if visited[nx] > nd:
-                heapq.heappush(pq, (nd, nx))
-                visited[nx] = nd
-
-
-dijkstra(start)
-
-print(visited[end])
+print(distance[finish])
