@@ -8,7 +8,7 @@ for _ in range(test):
     for c in coins:
         if c <= ans:
             possible[c] += 1
-            for i in range(1, ans+1-c):
-                possible[i+c] += possible[i]
+            for i in range(c, ans+1):
+                possible[i] += possible[i-c]
 
     print(possible[-1])
