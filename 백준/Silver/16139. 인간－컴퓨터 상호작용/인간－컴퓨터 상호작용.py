@@ -1,10 +1,20 @@
-word = input()
+import sys
+
+input = sys.stdin.readline
+
+name = input().strip()
 n = int(input())
-for _ in range(n):
-    w, a, b = map(str, input().split())
-    a, b = map(int, (a, b))
-    ans = 0
-    for i in range(a, b+1):
-        if word[i] == w:
-            ans += 1
-    print(ans)
+arr = [[0 for i in range(26)] for i in range(len(name))]
+arr[0][ord(name[0]) - 97] = 1
+for i in range(1, len(name)):
+    arr[i][ord(name[i]) - 97] = 1
+    for j in range(26):
+        arr[i][j] += arr[i - 1][j]
+for i in range(n):
+    a = input().split()
+    if int(a[1]) > 0:
+        res = arr[int(
+            a[2])][ord(a[0]) - 97] - arr[int(a[1]) - 1][ord(a[0]) - 97]
+    else:
+        res = arr[int(a[2])][ord(a[0]) - 97]
+    print(res)
