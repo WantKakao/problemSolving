@@ -1,43 +1,25 @@
 import sys
 input = sys.stdin.readline
-
 n = int(input())
 arr = []
 for _ in range(n):
-    arr.append([*map(int, input().split())])
-cnt1 = cnt2 = cnt3 = 0
-
-
-def check(x, y, size):
-    if size < 1:
-        return
-    global cnt1, cnt2, cnt3
-    temp = 0
-    isZero = 1
-    for i in range(x, x + size):
-        for j in range(y, y + size):
-            temp += arr[i][j]
-            if arr[i][j] != 0:
-                isZero = 0
-    if temp == -(size ** 2):
-        cnt1 += 1
-    elif temp == size ** 2:
-        cnt3 += 1
-    elif temp == 0 and isZero:
-        cnt2 += 1
+    arr.append(list(map(int, input().split())))
+ans = [0] * 3
+def dfs(x, y, n):
+    num = arr[x][y]
+    for i in range(n):
+        for j in range(n):
+            if arr[x+i][y+j] != num:
+                return False
+    return True
+def sol(x, y, n):
+    if dfs(x, y, n):
+        ans[arr[x][y]+1] += 1
     else:
-        check(x, y, size // 3)
-        check(x, y + size // 3, size // 3)
-        check(x, y + 2 * (size // 3), size // 3)
-        check(x + size // 3, y, size // 3)
-        check(x + size // 3, y + size // 3, size // 3)
-        check(x + size // 3, y + 2 * (size // 3), size // 3)
-        check(x + 2 * (size // 3), y, size // 3)
-        check(x + 2 * (size // 3), y + size // 3, size // 3)
-        check(x + 2 * (size // 3), y + 2 * (size // 3), size // 3)
-
-
-check(0, 0, n)
-print(cnt1)
-print(cnt2)
-print(cnt3)
+        for k in range(3):
+            for l in range(3):
+                sol(x + k * (n//3), y + l * (n//3), n//3)
+    return
+sol(0, 0, n)
+for i in range(3):
+    print(ans[i])
