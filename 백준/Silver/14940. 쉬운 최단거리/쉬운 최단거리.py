@@ -1,32 +1,35 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
+from collections import deque
 
 n, m = map(int, input().split())
-graph = []
+arr = []
 for _ in range(n):
-    graph.append([*map(int, input().split())])
+    arr.append([*map(int, input().split())])
 
-q = deque()
-distance = [[-1 for _ in range(m)] for _ in range(n)]
 for i in range(n):
     for j in range(m):
-        if graph[i][j] == 2:
-            q.append((i, j, 0))
-            distance[i][j] = 0
-        elif graph[i][j] == 0:
-            distance[i][j] = 0
+        if arr[i][j] == 1:
+            arr[i][j] = 1e6
+        elif arr[i][j] == 2:
+            arr[i][j] = 0
+            q = deque([(i, j, 0)])
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 while q:
-    i, j, k = q.popleft()
-    for dt in range(4):
-        if 0<=i+dx[dt]<n and 0<=j+dy[dt]<m and distance[i+dx[dt]][j+dy[dt]] == -1:
-            distance[i+dx[dt]][j+dy[dt]] = k+1
-            q.append((i+dx[dt], j+dy[dt], k+1))
+    x, y, c = q.popleft()
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < n and 0 <= ny < m and c+1 < arr[nx][ny]:
+            arr[nx][ny] = c+1
+            q.append((nx, ny, c+1))
 
 for i in range(n):
     for j in range(m):
-        print(distance[i][j], end=' ')
+        if arr[i][j] == 1e6:
+            print(-1, end=' ')
+        else:
+            print(arr[i][j], end=' ')
     print()
