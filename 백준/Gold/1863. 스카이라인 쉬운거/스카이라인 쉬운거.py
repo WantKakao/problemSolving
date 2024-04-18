@@ -11,7 +11,7 @@ for _ in range(n):
         ans += 1
         skyline.append(y)
     else:
-        while skyline:
+        while True:
             p = skyline.pop()
             if p <= y:
                 skyline.append(p)
