@@ -1,4 +1,3 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
@@ -8,7 +7,7 @@ for _ in range(n):
     buildings.append(int(input()))
 
 ans = 0
-q = deque()
+q = []
 for i in range(n):
     while q and q[-1][1] <= buildings[i]:
         idx, height = q.pop()
