@@ -20,7 +20,7 @@ def find_closest_to_zero_solution(N, properties):
                 right -= 1
             else:
                 # If the current_sum is 0, this is the closest we can get
-                return properties[i], properties[left], properties[right]
+                return result
 
     return result
 
