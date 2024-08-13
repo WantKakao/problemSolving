@@ -1,17 +1,5 @@
 import sys
-import math
 import random
-
-
-# 에라토스테네스의 체로 소수 리스트 생성
-def sieve(n):
-    is_prime = [True] * (n + 1)
-    is_prime[0] = is_prime[1] = False
-    for i in range(2, int(n ** 0.5) + 1):
-        if is_prime[i]:
-            for j in range(i * i, n + 1, i):
-                is_prime[j] = False
-    return [x for x in range(2, n + 1) if is_prime[x]]
 
 
 # 밀러-라빈 소수 판별법
@@ -39,16 +27,11 @@ def miller_rabin(n, k=5):  # k는 테스트 횟수
                 return True
         return False
 
-    for _ in range(k):
-        a = random.randint(2, n - 2)
-        if not check(a, d, n, r):
-            return False
+    a = 2
+    if not check(a, d, n, r):
+        return False
     return True
 
-
-# 최대 2 * 10^6까지 소수 리스트 생성
-max_limit = int(2 * 10 ** 6)
-small_primes = sieve(max_limit)
 
 # 입력 받기
 T = int(input().strip())
