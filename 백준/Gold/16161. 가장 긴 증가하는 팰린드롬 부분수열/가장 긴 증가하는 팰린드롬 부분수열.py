@@ -1,16 +1,3 @@
-
-def find_lis_length(seq):
-    """Longest Increasing Subsequence (LIS) 길이를 찾기 위한 이분 탐색 활용"""
-    lis = []
-    for num in seq:
-        pos = bisect_left(lis, num)
-        if pos == len(lis):
-            lis.append(num)
-        else:
-            lis[pos] = num
-    return len(lis)
-
-
 def longest_increasing_palindrome_length(S):
     n = len(S)
     max_length = 0
