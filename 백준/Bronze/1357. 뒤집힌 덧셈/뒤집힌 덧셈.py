@@ -1,0 +1,5 @@
+a, b = map(str, input().split())
+n1 = int(a[::-1])
+n2 = int(b[::-1])
+n3 = str(n1+n2)
+print(int(n3[::-1]))
