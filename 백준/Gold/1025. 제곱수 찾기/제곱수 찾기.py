@@ -14,17 +14,24 @@ def check_and_answer(number):
 ans = -1
 for i in range(n):
     for j in range(m):
-        for ki in range(-9, 9):
-            for kj in range(-9, 9):
+        for ki in range(9):
+            for kj in range(9):
                 num, num2 = nums[i][j], nums[i][j]
                 if ki==kj==0:
                     check_and_answer(int(num))
                     continue
                 else:
-                    ni, nj = i+ki, j+kj
-                    while 0 <= ni < n and 0 <= nj < m:
+                    ni, nj, uni, unj = i+ki, j+kj, i+ki, j-kj
+                    while ni < n and nj < m:
                         num += nums[ni][nj]
                         check_and_answer(int(num))
+                        check_and_answer(int(num[::-1]))
                         ni, nj = ni+ki, nj+kj
+                    while uni < n and unj >= 0:
+                        num2 += nums[uni][unj]
+                        check_and_answer(int(num2))
+                        check_and_answer(int(num2[::-1]))
+                        uni, unj = uni+ki, unj-kj
+
 
 print(ans)
