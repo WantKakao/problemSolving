@@ -1,24 +1,22 @@
 n = int(input())
-S = []
+S = set()
 for _ in range(n):
-    S.append(input())
+    S.add(input())
 
 def check_set(S):
     s = len(S)
+    list_S = list(S)
     prefix = [-1 for _ in range(s)]
     for i in range(s):
-        word = S[i]
+        word = list_S[i]
         w = len(word)
         for j in range(s):
-            if w <= len(S[j]) and word == S[j][:w]:
+            if w <= len(list_S[j]) and word == list_S[j][:w]:
                 prefix[i] += 1
-    return prefix
+    for k in range(s-1, -1, -1):
+        if prefix[k]:
+            list_S.pop(k)
+    return len(list_S)
 
-while True:
-    P = check_set(S)
-    if sum(P) == 0:
-        break
-    p = P.index(max(P))
-    S.pop(p)
-print(len(P))
+print(check_set(S))
         
