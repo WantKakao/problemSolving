@@ -12,12 +12,12 @@ q = deque()
 q.append((a, jump[a]))
 while q:
     t, d = q.popleft()
-    for i in range(t, n+1, bridge[t]):
+    for i in range(t, n+1, abs(bridge[t])):
         if not visited[i]:
             jump[i] = d+1
             q.append((i, d+1))
             visited[i] = True
-    for i in range(t, 0, -bridge[t]):
+    for i in range(t, 0, -abs(bridge[t])):
         if not visited[i]:
             jump[i] = d+1
             q.append((i, d+1))
