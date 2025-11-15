@@ -14,4 +14,4 @@ for i in range(1, len(s1)):
         if s1[i] == s2[j]:
             dp[i][j] = max(dp[i-1][j-1]+1, dp[i][j])
     
-print(max(v for row in dp for v in row))
+print(max(map(max, dp)))
