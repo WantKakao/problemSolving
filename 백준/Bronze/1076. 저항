@@ -1,0 +1,19 @@
+colors = {
+    'black': 0,
+    'brown': 1,
+    'red': 2,
+    'orange': 3,
+    'yellow': 4,
+    'green': 5,
+    'blue': 6,
+    'violet': 7,
+    'grey': 8,
+    'white': 9
+}
+
+a = input().strip()
+b = input().strip()
+c = input().strip()
+
+r = (colors[a] * 10 + colors[b]) * (10 ** colors[c])
+print(r)
