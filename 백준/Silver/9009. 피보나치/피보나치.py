@@ -1,22 +1,24 @@
 import sys
 input = sys.stdin.readline
 
-# 피보나치 생성
-fib = [1, 2]
-while fib[-1] < 1_000_000_000:
-    fib.append(fib[-1] + fib[-2])
-
-T = int(input())
-for _ in range(T):
+t = int(input())
+l = []
+for _ in range(t):
     n = int(input())
+    fibo = [0, 1, 1]
+    i = 0
+    while fibo[-1] <= n:
+        k = fibo[i+1] + fibo[i+2]
+        fibo.append(k)
+        i += 1
     ans = []
-
-    for i in range(len(fib)-1, -1, -1):
-        if fib[i] <= n:
-            n -= fib[i]
-            ans.append(fib[i])
+    for j in range(len(fibo)-2, 0, -1):
+        if fibo[j] <= n:
+            ans.append(fibo[j])
+            n -= fibo[j]
         if n == 0:
             break
+    for s in range(len(ans)):
+        print(ans[len(ans)-1-s], end=' ')
 
-    ans.sort()
-    print(*ans)
+    print()
