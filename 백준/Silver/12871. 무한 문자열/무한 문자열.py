@@ -1,11 +1,16 @@
-import math
-
 s1 = input().rstrip()
 s2 = input().rstrip()
 
-lcm = (len(s1) * len(s2)) // math.gcd(len(s1), len(s2))
+l1 = len(s1)
+l2 = len(s2)
+p1 = 100 // l1
+p2 = 100 // l2
 
-if s1 * (lcm // len(s1)) == s2 * (lcm // len(s2)):
+t1 = s1 * (p1+1)
+t2 = s2 * (p2+1)
+v1 = t1[:100]
+v2 = t2[:100]
+if v1 == v2:
     print(1)
 else:
     print(0)
